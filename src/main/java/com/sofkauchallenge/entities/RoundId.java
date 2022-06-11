@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Embeddable
 public class RoundId implements Serializable {
-    private static final long serialVersionUID = -2776260068614627946L;
+    private static final long serialVersionUID = -3771549205021133550L;
     @Column(name = "game_id", nullable = false)
     private Integer gameId;
 
@@ -21,16 +21,18 @@ public class RoundId implements Serializable {
         return gameId;
     }
 
-    public void setGameId(Integer gameId) {
+    public RoundId setGameId(Integer gameId) {
         this.gameId = gameId;
+        return this;
     }
 
     public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public RoundId setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+        return this;
     }
 
     @Override

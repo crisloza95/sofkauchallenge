@@ -20,24 +20,27 @@ public class Category {
         return id;
     }
 
-    public void setId(Integer id) {
+    public Category setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Category setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public Category setDifficulty(String difficulty) {
         this.difficulty = difficulty;
+        return this;
     }
 
 }

@@ -28,40 +28,45 @@ public class Game {
         return id;
     }
 
-    public void setId(Integer id) {
+    public Game setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public Instant getDate() {
         return date;
     }
 
-    public void setDate(Instant date) {
+    public Game setDate(Instant date) {
         this.date = date;
+        return this;
     }
 
     public String getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public Game setResult(String result) {
         this.result = result;
+        return this;
     }
 
     public Player getUserName() {
         return userName;
     }
 
-    public void setUserName(Player userName) {
+    public Game setUserName(Player userName) {
         this.userName = userName;
+        return this;
     }
 
     public Integer getCoins() {
         return coins;
     }
 
-    public void setCoins(Integer coins) {
+    public Game setCoins(Integer coins) {
         this.coins = coins;
+        return this;
     }
 
 }
