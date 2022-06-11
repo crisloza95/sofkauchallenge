@@ -13,5 +13,4 @@ public interface PlayerService {
 
     Player logIn(PlayerDto playerDto);
 
-
 }
