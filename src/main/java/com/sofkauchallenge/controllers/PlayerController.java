@@ -10,24 +10,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/sofkachallenge")
+@RequestMapping("/player")
 public class PlayerController {
 
     @Autowired
     private PlayerService playerService;
 
-    @GetMapping("/players")
-    public List<PlayerDto> listAllPlayers() {
-        return playerService.listAllPlayers();
-    }
-
-    @PostMapping("/gamesbyplayer")
-    public List<GameDto> listAllGamesByPlayer(@RequestBody PlayerDto playerDto) {
-        return playerService.listAllGamesByPlayer(playerDto);
-    }
-
     @PostMapping("/login")
     public Player logIn(@RequestBody PlayerDto playerDto) {
         return playerService.logIn(playerDto);
     }
+
+    @PostMapping("/games")
+    public List<GameDto> listAllGamesByPlayer(@RequestBody PlayerDto playerDto) {
+        return playerService.listAllGamesByPlayer(playerDto);
+    }
+
+    @GetMapping("/all")
+    public List<PlayerDto> listAllPlayers() {
+        return playerService.listAllPlayers();
+    }
+
 }
