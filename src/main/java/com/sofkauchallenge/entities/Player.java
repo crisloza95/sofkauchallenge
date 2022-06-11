@@ -16,8 +16,9 @@ public class Player {
         return id;
     }
 
-    public void setId(String id) {
+    public Player setId(String id) {
         this.id = id;
+        return this;
     }
 
 //TODO [JPA Buddy] generate columns from DB

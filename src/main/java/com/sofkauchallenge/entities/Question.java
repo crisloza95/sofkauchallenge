@@ -21,24 +21,27 @@ public class Question {
         return id;
     }
 
-    public void setId(Integer id) {
+    public Question setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(String question) {
+    public Question setQuestion(String question) {
         this.question = question;
+        return this;
     }
 
     public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public Question setCategory(Category category) {
         this.category = category;
+        return this;
     }
 
 }

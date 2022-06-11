@@ -25,32 +25,36 @@ public class Round {
         return id;
     }
 
-    public void setId(RoundId id) {
+    public Round setId(RoundId id) {
         this.id = id;
+        return this;
     }
 
     public Game getGame() {
         return game;
     }
 
-    public void setGame(Game game) {
+    public Round setGame(Game game) {
         this.game = game;
+        return this;
     }
 
     public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public Round setCategory(Category category) {
         this.category = category;
+        return this;
     }
 
     public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public Round setPrice(Integer price) {
         this.price = price;
+        return this;
     }
 
 }
