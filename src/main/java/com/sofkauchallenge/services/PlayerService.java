@@ -11,6 +11,6 @@ public interface PlayerService {
 
     List<GameDto> listAllGamesByPlayer(PlayerDto playerDto);
 
-    Player logIn(PlayerDto playerDto);
+    PlayerDto logIn(PlayerDto playerDto);
 
 }
