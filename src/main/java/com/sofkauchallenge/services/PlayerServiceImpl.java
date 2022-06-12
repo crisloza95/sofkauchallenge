@@ -8,6 +8,7 @@ import com.sofkauchallenge.repositories.GameRepository;
 import com.sofkauchallenge.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +51,14 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player logIn(PlayerDto playerDto) {
+    @Transactional
+    public PlayerDto logIn(PlayerDto playerDto) {
         Player player = dtoMapper.fromPlayerDtoToEntity(playerDto);
 
         playerRepository.save(player);
+        playerDto = dtoMapper.fromEntityToPlayerDto(player);
 
-        return player;
+        return playerDto;
     }
 
 }
