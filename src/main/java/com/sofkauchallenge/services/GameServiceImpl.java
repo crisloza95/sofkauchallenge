@@ -3,11 +3,7 @@ package com.sofkauchallenge.services;
 import com.sofkauchallenge.Dtos.*;
 import com.sofkauchallenge.entities.Game;
 import com.sofkauchallenge.entities.Round;
-import com.sofkauchallenge.entities.RoundId;
-import com.sofkauchallenge.repositories.AnswerRepository;
-import com.sofkauchallenge.repositories.GameRepository;
-import com.sofkauchallenge.repositories.QuestionRepository;
-import com.sofkauchallenge.repositories.RoundRepository;
+import com.sofkauchallenge.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 @Service
@@ -27,6 +24,9 @@ public class GameServiceImpl implements GameService {
     AnswerRepository answerRepository;
     @Autowired
     QuestionRepository questionRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
     @Autowired
     DtoMapper dtoMapper;
 
@@ -51,25 +51,55 @@ public class GameServiceImpl implements GameService {
 
     @Override
     @Transactional
-    public RoundDto selectRound(GameDto gameDto, CategoryDto categoryDto, int price) {
-        RoundDto roundDto = new RoundDto();
-        Round round;
-        RoundIdDto roundIdDto = new RoundIdDto();
+    public RoundDto selectRound(GameDto gameDto) {
+        List<RoundDto> roundDtos = new ArrayList<>();
+        CategoryDto categoryDto = new CategoryDto();
 
-        roundIdDto.setGameId(gameDto.getId());
-        roundIdDto.setCategoryId(categoryDto.getId());
+        roundRepository
+                .findAll()
+                .forEach(round -> roundDtos
+                        .add(dtoMapper
+                                .fromEntityToRounDto(round)));
 
-        roundDto.setId(roundIdDto);
-        roundDto.setGame(gameDto);
-        roundDto.setPrice(price);
-        roundDto.setCategory(categoryDto);
-        round = dtoMapper.fromRoundDtoToEntity(roundDto);
 
-        roundRepository.save(round);
+        List<RoundDto> roundDtosByGame;
+        roundDtosByGame = roundDtos
+                .stream()
+                .filter(roundDto -> roundDto
+                        .getGame()
+                        .equals(gameDto))
+                .toList();
 
-        roundDto = dtoMapper.fromEntityToRounDto(round);
+        if (roundDtosByGame.size() == 5) {
+//            gameOver(roundDtosByGame.get(5));
+            return null;
+        } else {
+            RoundDto roundDto = new RoundDto();
+            RoundIdDto roundIdDto = new RoundIdDto();
+            Round round;
+            int price = 10 * (roundDtosByGame.size() + 1);
 
-        return roundDto;
+            categoryDto = dtoMapper.
+                    fromEntityToCategoryDto(Objects
+                            .requireNonNull(categoryRepository
+                                    .findById(roundDtosByGame
+                                            .size() + 1)
+                                    .orElse(null)));
+
+            roundIdDto.setCategoryId(categoryDto.getId());
+            roundIdDto.setGameId(gameDto.getId());
+
+            roundDto.setId(roundIdDto);
+            roundDto.setGame(gameDto);
+            roundDto.setCategory(categoryDto);
+            roundDto.setPrice(price);
+            round = dtoMapper.fromRoundDtoToEntity(roundDto);
+
+            roundRepository.save(round);
+            roundDto = dtoMapper.fromEntityToRounDto(round);
+            return roundDto;
+
+        }
     }
 
     @Override
